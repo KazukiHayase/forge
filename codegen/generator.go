@@ -11,7 +11,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-const rootDir = ".forge"
+const RootDir = ".forge"
 
 type Data map[string]string
 
@@ -25,7 +25,7 @@ type Generator struct {
 func NewGenerator(name string) (Generator, error) {
 	var g Generator
 	if err := filepath.Walk(
-		rootDir,
+		RootDir,
 		func(path string, info os.FileInfo, err error) error {
 			if err != nil {
 				return err
@@ -116,7 +116,7 @@ func (g *Generator) Generate() error {
 
 	var inputPaths []string
 	for _, m := range g.Config.InOuts {
-		inputPaths = append(inputPaths, fmt.Sprintf("%s/%s", rootDir, m.Input))
+		inputPaths = append(inputPaths, fmt.Sprintf("%s/%s", RootDir, m.Input))
 	}
 
 	tmpls, err := template.ParseFiles(inputPaths...)
